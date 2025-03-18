@@ -5,8 +5,18 @@
 #include <X11/Xlib.h>     	// X11 library for low-level window management
 #include <X11/Xatom.h>    	// X11 atoms for window properties (e.g., _NET_WM_WINDOW_TYPE)
 
+
+// CONFIGS
 #define BAR_WIDTH 1920    	// Width of the bar, adjust to your screen resolution (e.g., 1920 for 1920x1080)
 #define BAR_HEIGHT 30     	// Height of the bar, similar to Polybar or other status bars
+#define BG_RED_INTENSITY 0	// (0-255)
+#define BG_GREEN_INTENSITY 200	// (0-255)
+#define BG_BLUE_INTENSITY 0	// (0-255)
+#define BG_COLOR_INTENSITY 255	// (0-255)
+
+
+
+
 
 // Function to set the window as a dock-type window with X11 properties
 void set_dock_properties(SDL_Window *window) 
@@ -99,7 +109,7 @@ int main()
 	// Example: This ensures the window is set as a dock before rendering starts
 
 	// Create a renderer for drawing on the window
-	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
 	if (!renderer)
 	{
 		printf("Error creating renderer: %s\n", SDL_GetError());
@@ -109,7 +119,7 @@ int main()
 	}
 
 	// Set background color to light gray (RGB: 200, 200, 200, fully opaque)
-	SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
+	SDL_SetRenderDrawColor(renderer, BG_RED_INTENSITY, BG_GREEN_INTENSITY, BG_BLUE_INTENSITY, BG_COLOR_INTENSITY);
 	SDL_RenderClear(renderer); // Fill the window with the background color
 	SDL_RenderPresent(renderer); // Display the rendered content
 
@@ -127,6 +137,7 @@ int main()
 			// Example: You could add more events here, like mouse clicks to show a menu
 		}
 		// Example: Add dynamic content here, e.g., SDL_RenderDrawLine for a clock
+		SDL_Delay(1000);
 	}
 
 	// Clean up resources before exiting
